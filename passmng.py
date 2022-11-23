@@ -1,20 +1,14 @@
-from tkinter import PhotoImage, Radiobutton, Tk, CENTER, Button, Label, Frame,Entry, IntVar,Text,INSERT
+from tkinter import PhotoImage, Radiobutton, Tk, CENTER, Button, Label, Frame,Entry, IntVar,Text,INSERT,ttk
 import pymysql
 import random
 import pyperclip
 import smtplib
-from tkinter import ttk
-from cryptography.fernet import Fernet
 
 
 server = smtplib.SMTP('smtp.gmail.com',587)
 server.starttls()
 server.login("adityapassmng25346@gmail.com","cgntqxsrsbzsxdcq")
 
-key = Fernet.generate_key()
-fernet = Fernet(key)
-
-fonts=['Bahnschrift','High Tower Text']
 bgcol = "#282c34"
 fgcol = "#f5fffa"
 btncol = "#59626f"
@@ -29,7 +23,7 @@ window.configure(bg="black")
 
 #c.execute("create table passlog(sno int not null,softname varchar(100),password varchar(512),emailId varchar(200))")
 # ALL FUNCTIONS
-global entry1
+#global entry1
 
 def showpass():
     conn = pymysql.connect(host="localhost",user="root",password="amity",port=3306,database="adityagautampassmng25346")
@@ -214,7 +208,7 @@ def verifymaila():
             bg = btncol,
             borderwidth=4,
             width = 25,
-            justify=CENTER
+            justify=CENTER,
             )
     entryz.pack(padx = 10,ipady=1,ipadx=1,pady=30)
     entryz.insert(0,"Enter the code...")
@@ -282,9 +276,6 @@ def delpass():
     decpassL=[]
     for i in l:
         decPass=""
-        #print (fernet.decrypt(bytes(i[2],encoding='utf-8')).decode())
-        #print (rsa.decrypt(bytes(i[2],encoding="utf-8"),privateKey).decode("ascii"))
-        #chr(ord(i[2])-i[4])
         for k in i[2]:
             a = (chr(ord(k)-i[4]))
             decPass += a
@@ -409,7 +400,8 @@ def confpass1():
                 font = ("Bahnschrift",15),
                 bg = btncol,
                 width=20,
-                justify=CENTER
+                justify=CENTER,
+                show="*"
                 )
         entryb1.pack(padx=10,pady=41,ipady=3)
         sbmtBtn = Button(
@@ -526,9 +518,6 @@ def chkpass():
     decpassL=[]
     for i in l:
         decPass=""
-        #print (fernet.decrypt(bytes(i[2],encoding='utf-8')).decode())
-        #print (rsa.decrypt(bytes(i[2],encoding="utf-8"),privateKey).decode("ascii"))
-        #chr(ord(i[2])-i[4])
         for k in i[2]:
             a = (chr(ord(k)-i[4]))
             decPass += a
@@ -619,7 +608,8 @@ def updpass2():
             font = ("Bahnschrift",15),
             bg = btncol,
             width=20,
-            justify=CENTER
+            justify=CENTER,
+            show="*"
             )
     entryd.pack(padx=10,pady=40,ipady=3)
     sbmtBtn = Button(
@@ -661,7 +651,8 @@ def updpass():
             font = ("Bahnschrift",15),
             bg = btncol,
             width=20,
-            justify=CENTER
+            justify=CENTER,
+            show="*"
             )
     entryc.pack(padx=10,pady=49,ipady=3)
     sbmtBtn = Button(
@@ -705,7 +696,8 @@ def confpass():
             font = ("Bahnschrift",15),
             bg = btncol,
             width=20,
-            justify=CENTER
+            justify=CENTER,
+            show="*"
             )
     entryb.pack(padx=10,pady=41,ipady=3)
     sbmtBtn = Button(
@@ -1137,92 +1129,6 @@ def exitfunc():
     window.destroy()
 
 # FIRST PAGE (MAIN PAGE)
-'''
-labelframe = Frame(
-        window,
-        relief="raised",
-        height=400,
-        width=400,
-        borderwidth=18,
-        bg = bgcol,
-        )
-labelframe.pack()
-
-label = Label (
-        labelframe,
-        text = "PASSWORD MANAGER",
-        font = ("High Tower Text",20),
-        bg = bgcol,
-        fg = fgcol
-        )
-label.pack(padx=22,pady=15)
-
-createBtn = Button(
-        labelframe,
-        text = "Create",
-        font = ("Bahnschrift",12),
-        relief="raised",
-        command = createbtn,
-        bg = btncol,
-        activebackground=btncol,
-        width = 20,
-        height = 1
-        )
-updateBtn = Button(
-        labelframe,
-        text = "Update",
-        font = ("Bahnschrift",12),
-        relief="raised",
-        bg = btncol,
-        activebackground=btncol,
-        command = update,
-        width = 20,
-        )
-deleteBtn = Button(
-        labelframe,
-        text = "Delete",
-        font = ("Bahnschrift",12),
-        relief="raised",
-        bg = btncol,
-        activebackground=btncol,
-        width = 20,
-        command = update1
-        )
-displayBtn = Button(
-        labelframe,
-        text = "Display",
-        font = ("Bahnschrift",12),
-        relief="raised",
-        bg = btncol,
-        activebackground=btncol,
-        width = 20,
-        command = display
-        )
-exitBtn = Button(
-        labelframe,
-        text = "  Exit  ",
-        font = ("Bahnschrift",10),
-        relief="raised",
-        bg = bgcol,
-        activebackground=bgcol,
-        fg = fgcol,
-        activeforeground= fgcol,
-        command = exitfunc,
-        width = 5,
-        )
-createBtn.pack(padx=10,pady=10)
-updateBtn.pack(padx=10,pady=10)
-deleteBtn.pack(padx=10,pady=10)
-displayBtn.pack(padx=10,pady=10)
-exitBtn.pack(padx=10,pady=15)
-
-label = Label(
-        labelframe,
-        text="",
-        bg = bgcol
-        )
-label.pack(padx=5,pady=5)
-'''
 
 #CREATE PAGE
 #login page
@@ -1295,16 +1201,11 @@ def verifyagain():
         button = Button(labelframe, font=("Bahnschrift",12),text="Try Again",command=loginpage,bg=btncol)
         button.pack(padx=10,pady=70)
 
-def deltxt1(e):
-    entryz.delete(0,"end")
-def verifymail():
-    global emailid
-    emailid = entry.get()
-    global code
-    code=random.randint(10000,99999)
-    server.sendmail("adityapassmng25346",emailid,"The code for verifying your email address for the Password Manager is "+str(code)+"\nDo not share this code with anyone\n\nAditya Gautam\n12D")
+def exitloop():
+    window.destroy()
+def mailerror():
     for widget in window.winfo_children():
-        widget.destroy()
+            widget.destroy()
     labelframe = Frame(
         window,
         relief="raised",
@@ -1316,28 +1217,89 @@ def verifymail():
     labelframe.pack()
     label = Label (
         labelframe,
-        text = "Enter the code sent to your mail",
+        text = "Invalid Mail ID!",
         wraplength=320,
         font = ("High Tower Text",20),
         bg = bgcol,
         fg = fgcol
         )
-    label.pack(padx=30,pady=37)
-
-    global entryz
-    entryz = Entry(
+    label.pack(padx=90,pady=67)
+    btn = Button(
+        labelframe,
+        font=("Bahnschrift",13),
+        bg = bgcol,
+        fg = fgcol,
+        text = "Try Again",
+        width=20,
+        activebackground=bgcol,
+        command=login
+        )
+    btn.pack(padx=10,pady=10)
+    exitbtn2 = Button(
+        labelframe,
+        font = ("Bahnschrift",13),
+        bg = bgcol,
+        fg = fgcol,
+        text="Exit",
+        width=20,
+        activebackground=bgcol,
+        command=exitloop
+        )
+    exitbtn2.pack(padx=10,pady=10)
+    label=Label(
             labelframe,
-            font = ("Bahnschrift",14),
-            bg = btncol,
-            borderwidth=4,
-            width = 25,
-            justify=CENTER
+            bg=bgcol
             )
-    entryz.pack(padx = 10,ipady=1,ipadx=1,pady=30)
-    entryz.insert(0,"Enter the code...")
-    entryz.bind("<FocusIn>",deltxt1)
-    btn = Button(labelframe,font=("Bahnschrift",12),bg=btncol,text = "Submit",justify=CENTER,activebackground=btncol,width=7,command = verifyagain)
-    btn.pack(padx=20,pady=46)
+    label.pack(pady=100)
+
+def deltxt1(e):
+    entryz.delete(0,"end")
+def verifymail():
+    global emailid
+    emailid = entry.get()
+    global code
+    code=random.randint(10000,99999)
+    try:
+        server.sendmail("adityapassmng25346",emailid,"The code for verifying your email address for the Password Manager is "+str(code)+"\nDo not share this code with anyone\n\nAditya Gautam\n12D")
+
+        for widget in window.winfo_children():
+            widget.destroy()
+        labelframe = Frame(
+            window,
+            relief="raised",
+            height=400,
+            width=400,
+            borderwidth=18,
+            bg = bgcol,
+            )
+        labelframe.pack()
+        label = Label (
+            labelframe,
+            text = "Enter the code sent to your mail",
+            wraplength=320,
+            font = ("High Tower Text",20),
+            bg = bgcol,
+            fg = fgcol
+            )
+        label.pack(padx=30,pady=37)
+
+        global entryz
+        entryz = Entry(
+                labelframe,
+                font = ("Bahnschrift",14),
+                bg = btncol,
+                borderwidth=4,
+                width = 25,
+                justify=CENTER,
+                )
+        entryz.pack(padx = 10,ipady=1,ipadx=1,pady=30)
+        entryz.insert(0,"Enter the code...")
+        entryz.bind("<FocusIn>",deltxt1)
+        btn = Button(labelframe,font=("Bahnschrift",12),bg=btncol,text = "Submit",justify=CENTER,activebackground=btncol,width=7,command = verifyagain)
+        btn.pack(padx=20,pady=46)
+
+    except:
+        mailerror()
 
 def deltxt(e):
     entry.delete(0,"end")
@@ -1417,4 +1379,3 @@ loginBtn.pack(padx=10,pady=50)
 label.pack(pady=15)
 
 window.mainloop()
-
